@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "83597fa9-74cd-4849-9c47-59f3034966ab",
+		"name": "基金",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "批量获取净值",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://fundmobapi.eastmoney.com/FundMNewApi/FundMNFInfo?plat=Android&deviceid=656c09923c567&product=EFund&Version=6.2.4&Fcodes=005919%2C005918%2C001618%2C001595%2C001632%2C007301%2C002974%2C001868",
+					"protocol": "https",
+					"host": [
+						"fundmobapi",
+						"eastmoney",
+						"com"
+					],
+					"path": [
+						"FundMNewApi",
+						"FundMNFInfo"
+					],
+					"query": [
+						{
+							"key": "pageIndex",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "ReqNo",
+							"value": "1588236936503",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "cccccccTokenErrorStop",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "plat",
+							"value": "Android"
+						},
+						{
+							"key": "appType",
+							"value": "ttjj",
+							"disabled": true
+						},
+						{
+							"key": "deviceid",
+							"value": "656c09923c567"
+						},
+						{
+							"key": "product",
+							"value": "EFund"
+						},
+						{
+							"key": "Version",
+							"value": "6.2.4"
+						},
+						{
+							"key": "Fcodes",
+							"value": "005919%2C005918%2C001618%2C001595%2C001632%2C007301%2C002974%2C001868"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "历史净值",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://fundmobapi.eastmoney.com/FundMNewApi/FundMNHisNetList?product=EFund&appVersion=6.2.4&FCODE=005919&pageSize=2&deviceid=656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me&version=6.2.4&pageIndex=1&plat=Android",
+					"protocol": "https",
+					"host": [
+						"fundmobapi",
+						"eastmoney",
+						"com"
+					],
+					"path": [
+						"FundMNewApi",
+						"FundMNHisNetList"
+					],
+					"query": [
+						{
+							"key": "product",
+							"value": "EFund"
+						},
+						{
+							"key": "appVersion",
+							"value": "6.2.4"
+						},
+						{
+							"key": "serverVersion",
+							"value": "6.2.0",
+							"disabled": true
+						},
+						{
+							"key": "FCODE",
+							"value": "005919"
+						},
+						{
+							"key": "pageSize",
+							"value": "2"
+						},
+						{
+							"key": "deviceid",
+							"value": "656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me"
+						},
+						{
+							"key": "version",
+							"value": "6.2.4"
+						},
+						{
+							"key": "userId",
+							"value": "04bde1bf083e41f3982363633a765e4a",
+							"disabled": true
+						},
+						{
+							"key": "cToken",
+							"value": "qnnukdfhauueer8uenj1uaqnanqcqncc",
+							"disabled": true
+						},
+						{
+							"key": "MobileKey",
+							"value": "656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me",
+							"disabled": true
+						},
+						{
+							"key": "pageIndex",
+							"value": "1"
+						},
+						{
+							"key": "appType",
+							"value": "ttjj",
+							"disabled": true
+						},
+						{
+							"key": "plat",
+							"value": "Android"
+						},
+						{
+							"key": "IsShareNet",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "uToken",
+							"value": "r8endkha1-unrjenqkcc8cfadkk1ka-h",
+							"disabled": true
+						},
+						{
+							"key": "passportid",
+							"value": "4076335822863216",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "基金详情",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://fundmobapi.eastmoney.com/FundMNewApi/FundMNNBasicInformation?version=6.2.4&plat=Android&appType=ttjj&FCODE=005919&onFundCache=3&keeeeeyparam=FCODE&deviceid=656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me&igggggnoreburst=true&product=EFund&MobileKey=656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me",
+					"protocol": "https",
+					"host": [
+						"fundmobapi",
+						"eastmoney",
+						"com"
+					],
+					"path": [
+						"FundMNewApi",
+						"FundMNNBasicInformation"
+					],
+					"query": [
+						{
+							"key": "version",
+							"value": "6.2.4"
+						},
+						{
+							"key": "plat",
+							"value": "Android"
+						},
+						{
+							"key": "appType",
+							"value": "ttjj"
+						},
+						{
+							"key": "FCODE",
+							"value": "005919"
+						},
+						{
+							"key": "onFundCache",
+							"value": "3"
+						},
+						{
+							"key": "keeeeeyparam",
+							"value": "FCODE"
+						},
+						{
+							"key": "deviceid",
+							"value": "656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me"
+						},
+						{
+							"key": "igggggnoreburst",
+							"value": "true"
+						},
+						{
+							"key": "product",
+							"value": "EFund"
+						},
+						{
+							"key": "MobileKey",
+							"value": "656c09923c567b89bb44801020bc59ab%7C%7Ciemi_tluafed_me"
+						},
+						{
+							"key": "gToken",
+							"value": "ceaf-3e400c285ba12684fecc1c0f4d7e9a74",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
