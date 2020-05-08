@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.fund.strategy.databinding.MainActivityBinding;
 import com.fund.strategy.ui.HangQingFragment;
-import com.fund.strategy.ui.ZhiYouFragment;
+import com.fund.strategy.ui.ChiYouFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
         mBinding.mainTabLayout.setupWithViewPager(mBinding.mainViewPager);
         mBinding.mainViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+            private String[] mTitle = new String[]{"持有", "行情"};
+
             @NonNull
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) {
-                    return ZhiYouFragment.newInstance();
+                    return ChiYouFragment.newInstance();
                 }
                 return HangQingFragment.newInstance();
             }
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                return "测试";
+                return mTitle[position];
             }
         });
     }
