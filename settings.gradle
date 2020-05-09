@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':baselib'
 rootProject.name='FundStrategyHelper'

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.fund.strategy.R;
 import com.fund.strategy.databinding.MainFragmentChiyouBinding;
+import com.fund.strategy.databinding.SearchFundBinding;
 import com.fund.strategy.model.api.RetrofitManager;
 import com.fund.strategy.utils.RxUtils;
 
@@ -54,9 +55,7 @@ public class ChiYouFragment extends Fragment implements View.OnClickListener, Sw
     @Override
     public void onClick(View v) {
         if (mBinding.mainAdd.equals(v)) {
-            RetrofitManager.getApiService().queryFundInfo("005919")
-                    .compose(RxUtils.singleSchedulers())
-                    .subscribe();
+            SearchFundActivity.start(getActivity());
         }
     }
 
