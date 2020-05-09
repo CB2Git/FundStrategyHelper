@@ -3,11 +3,15 @@ package com.fund.strategy.model.api;
 import com.fund.strategy.model.api.entity.FundHistroyInfo;
 import com.fund.strategy.model.api.entity.FundInfo;
 import com.fund.strategy.model.api.entity.FundLatestInfo;
+import com.fund.strategy.model.api.entity.HangQingInfoData;
 
 import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Api {
 
@@ -36,4 +40,13 @@ public interface Api {
     @FormUrlEncoded
     @POST("FundMNewApi/FundMNHisNetList")
     Single<FundHistroyInfo> queryHistroyInfo(@Field("FCODE") String code, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
+    /**
+     *
+     * @param category  主要指数 zyzs  行业指数  hyzs
+     * @return
+     */
+    @GET("djapi/v3/index/quotes")
+    @Headers({"url:https://danjuanfunds.com/"})
+    Single<HangQingInfoData> hangQingInfo(@Query("category") String category);
 }
