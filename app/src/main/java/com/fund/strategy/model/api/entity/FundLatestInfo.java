@@ -1,4 +1,4 @@
-package com.fund.strategy.model.api.model;
+package com.fund.strategy.model.api.entity;
 
 import java.util.List;
 

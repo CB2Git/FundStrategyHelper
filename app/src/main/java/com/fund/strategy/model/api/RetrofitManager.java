@@ -14,7 +14,7 @@ public class RetrofitManager {
 
     private static Retrofit mRetrofitClient = null;
 
-    public static Retrofit getRetroClient() {
+    private static Retrofit getRetroClient() {
         if (mRetrofitClient == null) {
             synchronized (RetrofitManager.class) {
                 if (mRetrofitClient == null) {

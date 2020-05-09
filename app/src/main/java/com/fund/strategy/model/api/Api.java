@@ -1,8 +1,8 @@
 package com.fund.strategy.model.api;
 
-import com.fund.strategy.model.api.model.FundHistroyInfo;
-import com.fund.strategy.model.api.model.FundInfo;
-import com.fund.strategy.model.api.model.FundLatestInfo;
+import com.fund.strategy.model.api.entity.FundHistroyInfo;
+import com.fund.strategy.model.api.entity.FundInfo;
+import com.fund.strategy.model.api.entity.FundLatestInfo;
 
 import io.reactivex.Single;
 import retrofit2.http.Field;

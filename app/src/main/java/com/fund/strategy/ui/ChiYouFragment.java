@@ -4,16 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.fund.strategy.R;
 import com.fund.strategy.databinding.MainFragmentChiyouBinding;
+import com.fund.strategy.model.api.RetrofitManager;
+import com.fund.strategy.utils.RxUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ChiYouFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -51,7 +54,9 @@ public class ChiYouFragment extends Fragment implements View.OnClickListener, Sw
     @Override
     public void onClick(View v) {
         if (mBinding.mainAdd.equals(v)) {
-            Toast.makeText(getActivity(), "新增", Toast.LENGTH_SHORT).show();
+            RetrofitManager.getApiService().queryFundInfo("005919")
+                    .compose(RxUtils.singleSchedulers())
+                    .subscribe();
         }
     }
 
