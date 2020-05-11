@@ -60,16 +60,22 @@ public class OkHttpManager {
             Request request = chain.request();
             String url = request.header(NEW_URL_KEY);
 
-             if (!TextUtils.isEmpty(url)) {
+            if (!TextUtils.isEmpty(url)) {
                 HttpUrl httpUrl = request.url();
-                HttpUrl.Builder builder = httpUrl.newBuilder(url);
 
-                if (builder != null) {
-                    request = request.newBuilder()
-                            .url(builder.build())
-                            .removeHeader(NEW_URL_KEY)
-                            .build();
+                HttpUrl parse = HttpUrl.parse(url);
+                HttpUrl.Builder builder = httpUrl.newBuilder();
+
+                if (parse != null) {
+                    builder.scheme(parse.scheme())
+                            .host(parse.host())
+                            .port(parse.port());
                 }
+
+                request = request.newBuilder()
+                        .url(builder.build())
+                        .removeHeader(NEW_URL_KEY)
+                        .build();
             }
 
             return chain.proceed(request);

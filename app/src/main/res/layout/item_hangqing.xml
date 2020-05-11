@@ -7,29 +7,47 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/zs_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             tools:text="上证指数" />
 
         <TextView
+            android:id="@+id/zs_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="152000" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="+23.58" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="+0.83%" />
+            <TextView
+                android:id="@+id/zs_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="+23.58" />
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/zs_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="+0.83%" />
+        </LinearLayout>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
