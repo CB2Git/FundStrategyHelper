@@ -1,29 +1,31 @@
 package com.fund.strategy.ui;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.cc.baselib.mvvm.BaseMVVMFragment;
+import com.cc.baselib.mvvm.data.Resource;
 import com.fund.strategy.R;
 import com.fund.strategy.databinding.MainFragmentChiyouBinding;
-import com.fund.strategy.databinding.SearchFundBinding;
-import com.fund.strategy.model.api.RetrofitManager;
-import com.fund.strategy.utils.RxUtils;
+import com.fund.strategy.model.api.entity.FundLatestInfo;
+import com.fund.strategy.mv.chiyou.ChiYouModel;
+import com.fund.strategy.ui.adapter.ChiYouAdapter;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class ChiYouFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ChiYouFragment extends BaseMVVMFragment<MainFragmentChiyouBinding, ChiYouModel> implements View.OnClickListener {
 
     private static final String TAG = "ChiYouFragment";
 
-    private MainFragmentChiyouBinding mBinding;
+    private ChiYouAdapter mChiYouAdapter = new ChiYouAdapter();
 
     public static ChiYouFragment newInstance() {
         Bundle args = new Bundle();
@@ -32,24 +34,52 @@ public class ChiYouFragment extends Fragment implements View.OnClickListener, Sw
         return fragment;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.main_fragment_chiyou, container, false);
-        return mBinding.getRoot();
+    protected ChiYouModel createViewModel() {
+        return new ViewModelProvider(this).get(ChiYouModel.class);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView();
+    protected int getLayoutId() {
+        return R.layout.main_fragment_chiyou;
     }
 
-    private void initView() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel.getFundLatestInfo().observe(this, new Observer<Resource<List<FundLatestInfo>>>() {
+            @Override
+            public void onChanged(Resource<List<FundLatestInfo>> listResource) {
+                if (listResource.status == Resource.Status.LOADING) {
+                    mBinding.mainRefreshLayout.setRefreshing(true);
+                } else if (listResource.status == Resource.Status.ERROR) {
+                    mBinding.mainRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
+                } else {
+                    mBinding.mainRefreshLayout.setRefreshing(false);
+                    mChiYouAdapter.setNewInstance(listResource.data);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void initView() {
         mBinding.mainAdd.setOnClickListener(this);
 
         mBinding.mainRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        mBinding.mainRefreshLayout.setOnRefreshListener(this);
+        mBinding.mainRefreshLayout.setOnRefreshListener(() -> mViewModel.reqChiYouInfo());
+
+        mBinding.mainChiyouList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.mainChiyouList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mBinding.mainChiyouList.setAdapter(mChiYouAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.reqChiYouInfo();
     }
 
     @Override
@@ -59,8 +89,4 @@ public class ChiYouFragment extends Fragment implements View.OnClickListener, Sw
         }
     }
 
-    @Override
-    public void onRefresh() {
-        mBinding.mainRefreshLayout.setRefreshing(false);
-    }
 }

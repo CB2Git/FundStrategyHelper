@@ -1,283 +1,147 @@
 package com.fund.strategy.model.api.entity;
 
-import java.util.List;
-
 public class FundLatestInfo {
-
-
     /**
-     * Datas : [{"FCODE":"005919","SHORTNAME":"天弘中证500指数C","PDATE":"2020-04-29","NAV":"0.9214","ACCNAV":"0.9214","NAVCHGRT":"0.01","GSZ":"0.9427","GSZZL":"2.31","GZTIME":"2020-04-30 15:00","NEWPRICE":"--","CHANGERATIO":"--","ZJL":"--","HQDATE":"--","ISHAVEREDPACKET":false}]
-     * ErrCode : 0
-     * Success : true
-     * ErrMsg : null
-     * Message : null
-     * ErrorCode : 0
-     * ErrorMessage : null
-     * ErrorMsgLst : null
-     * TotalCount : 8
-     * Expansion : {"GZTIME":"2020-04-30","FSRQ":"2020-04-29"}
+     * FCODE : 005919
+     * SHORTNAME : 天弘中证500指数C
+     * PDATE : 2020-04-29
+     * NAV : 0.9214
+     * ACCNAV : 0.9214
+     * NAVCHGRT : 0.01
+     * GSZ : 0.9427
+     * GSZZL : 2.31
+     * GZTIME : 2020-04-30 15:00
+     * NEWPRICE : --
+     * CHANGERATIO : --
+     * ZJL : --
+     * HQDATE : --
+     * ISHAVEREDPACKET : false
      */
 
-    private int ErrCode;
-    private boolean Success;
-    private Object ErrMsg;
-    private Object Message;
-    private String ErrorCode;
-    private Object ErrorMessage;
-    private Object ErrorMsgLst;
-    private int TotalCount;
-    private ExpansionBean Expansion;
-    private List<DatasBean> Datas;
+    private String FCODE;
+    private String SHORTNAME;
+    private String PDATE;
+    private float NAV;
+    private float ACCNAV;
+    private float NAVCHGRT;
+    private float GSZ;
+    private float GSZZL;
+    private String GZTIME;
+    private String NEWPRICE;
+    private String CHANGERATIO;
+    private String ZJL;
+    private String HQDATE;
+    private boolean ISHAVEREDPACKET;
 
-    public int getErrCode() {
-        return ErrCode;
+    public String getFCODE() {
+        return FCODE;
     }
 
-    public void setErrCode(int ErrCode) {
-        this.ErrCode = ErrCode;
+    public void setFCODE(String FCODE) {
+        this.FCODE = FCODE;
     }
 
-    public boolean isSuccess() {
-        return Success;
+    public String getSHORTNAME() {
+        return SHORTNAME;
     }
 
-    public void setSuccess(boolean Success) {
-        this.Success = Success;
+    public void setSHORTNAME(String SHORTNAME) {
+        this.SHORTNAME = SHORTNAME;
     }
 
-    public Object getErrMsg() {
-        return ErrMsg;
+    public String getPDATE() {
+        return PDATE;
     }
 
-    public void setErrMsg(Object ErrMsg) {
-        this.ErrMsg = ErrMsg;
+    public void setPDATE(String PDATE) {
+        this.PDATE = PDATE;
     }
 
-    public Object getMessage() {
-        return Message;
+    public float getNAV() {
+        return NAV;
     }
 
-    public void setMessage(Object Message) {
-        this.Message = Message;
+    public void setNAV(float NAV) {
+        this.NAV = NAV;
     }
 
-    public String getErrorCode() {
-        return ErrorCode;
+    public float getACCNAV() {
+        return ACCNAV;
     }
 
-    public void setErrorCode(String ErrorCode) {
-        this.ErrorCode = ErrorCode;
+    public void setACCNAV(float ACCNAV) {
+        this.ACCNAV = ACCNAV;
     }
 
-    public Object getErrorMessage() {
-        return ErrorMessage;
+    public float getNAVCHGRT() {
+        return NAVCHGRT;
     }
 
-    public void setErrorMessage(Object ErrorMessage) {
-        this.ErrorMessage = ErrorMessage;
+    public void setNAVCHGRT(float NAVCHGRT) {
+        this.NAVCHGRT = NAVCHGRT;
     }
 
-    public Object getErrorMsgLst() {
-        return ErrorMsgLst;
+    public float getGSZ() {
+        return GSZ;
     }
 
-    public void setErrorMsgLst(Object ErrorMsgLst) {
-        this.ErrorMsgLst = ErrorMsgLst;
+    public void setGSZ(float GSZ) {
+        this.GSZ = GSZ;
     }
 
-    public int getTotalCount() {
-        return TotalCount;
+    public float getGSZZL() {
+        return GSZZL;
     }
 
-    public void setTotalCount(int TotalCount) {
-        this.TotalCount = TotalCount;
+    public void setGSZZL(float GSZZL) {
+        this.GSZZL = GSZZL;
     }
 
-    public ExpansionBean getExpansion() {
-        return Expansion;
+    public String getGZTIME() {
+        return GZTIME;
     }
 
-    public void setExpansion(ExpansionBean Expansion) {
-        this.Expansion = Expansion;
+    public void setGZTIME(String GZTIME) {
+        this.GZTIME = GZTIME;
     }
 
-    public List<DatasBean> getDatas() {
-        return Datas;
+    public String getNEWPRICE() {
+        return NEWPRICE;
     }
 
-    public void setDatas(List<DatasBean> Datas) {
-        this.Datas = Datas;
+    public void setNEWPRICE(String NEWPRICE) {
+        this.NEWPRICE = NEWPRICE;
     }
 
-    public static class ExpansionBean {
-        /**
-         * GZTIME : 2020-04-30
-         * FSRQ : 2020-04-29
-         */
-
-        private String GZTIME;
-        private String FSRQ;
-
-        public String getGZTIME() {
-            return GZTIME;
-        }
-
-        public void setGZTIME(String GZTIME) {
-            this.GZTIME = GZTIME;
-        }
-
-        public String getFSRQ() {
-            return FSRQ;
-        }
-
-        public void setFSRQ(String FSRQ) {
-            this.FSRQ = FSRQ;
-        }
+    public String getCHANGERATIO() {
+        return CHANGERATIO;
     }
 
-    public static class DatasBean {
-        /**
-         * FCODE : 005919
-         * SHORTNAME : 天弘中证500指数C
-         * PDATE : 2020-04-29
-         * NAV : 0.9214
-         * ACCNAV : 0.9214
-         * NAVCHGRT : 0.01
-         * GSZ : 0.9427
-         * GSZZL : 2.31
-         * GZTIME : 2020-04-30 15:00
-         * NEWPRICE : --
-         * CHANGERATIO : --
-         * ZJL : --
-         * HQDATE : --
-         * ISHAVEREDPACKET : false
-         */
+    public void setCHANGERATIO(String CHANGERATIO) {
+        this.CHANGERATIO = CHANGERATIO;
+    }
 
-        private String FCODE;
-        private String SHORTNAME;
-        private String PDATE;
-        private String NAV;
-        private String ACCNAV;
-        private String NAVCHGRT;
-        private String GSZ;
-        private String GSZZL;
-        private String GZTIME;
-        private String NEWPRICE;
-        private String CHANGERATIO;
-        private String ZJL;
-        private String HQDATE;
-        private boolean ISHAVEREDPACKET;
+    public String getZJL() {
+        return ZJL;
+    }
 
-        public String getFCODE() {
-            return FCODE;
-        }
+    public void setZJL(String ZJL) {
+        this.ZJL = ZJL;
+    }
 
-        public void setFCODE(String FCODE) {
-            this.FCODE = FCODE;
-        }
+    public String getHQDATE() {
+        return HQDATE;
+    }
 
-        public String getSHORTNAME() {
-            return SHORTNAME;
-        }
+    public void setHQDATE(String HQDATE) {
+        this.HQDATE = HQDATE;
+    }
 
-        public void setSHORTNAME(String SHORTNAME) {
-            this.SHORTNAME = SHORTNAME;
-        }
+    public boolean isISHAVEREDPACKET() {
+        return ISHAVEREDPACKET;
+    }
 
-        public String getPDATE() {
-            return PDATE;
-        }
-
-        public void setPDATE(String PDATE) {
-            this.PDATE = PDATE;
-        }
-
-        public String getNAV() {
-            return NAV;
-        }
-
-        public void setNAV(String NAV) {
-            this.NAV = NAV;
-        }
-
-        public String getACCNAV() {
-            return ACCNAV;
-        }
-
-        public void setACCNAV(String ACCNAV) {
-            this.ACCNAV = ACCNAV;
-        }
-
-        public String getNAVCHGRT() {
-            return NAVCHGRT;
-        }
-
-        public void setNAVCHGRT(String NAVCHGRT) {
-            this.NAVCHGRT = NAVCHGRT;
-        }
-
-        public String getGSZ() {
-            return GSZ;
-        }
-
-        public void setGSZ(String GSZ) {
-            this.GSZ = GSZ;
-        }
-
-        public String getGSZZL() {
-            return GSZZL;
-        }
-
-        public void setGSZZL(String GSZZL) {
-            this.GSZZL = GSZZL;
-        }
-
-        public String getGZTIME() {
-            return GZTIME;
-        }
-
-        public void setGZTIME(String GZTIME) {
-            this.GZTIME = GZTIME;
-        }
-
-        public String getNEWPRICE() {
-            return NEWPRICE;
-        }
-
-        public void setNEWPRICE(String NEWPRICE) {
-            this.NEWPRICE = NEWPRICE;
-        }
-
-        public String getCHANGERATIO() {
-            return CHANGERATIO;
-        }
-
-        public void setCHANGERATIO(String CHANGERATIO) {
-            this.CHANGERATIO = CHANGERATIO;
-        }
-
-        public String getZJL() {
-            return ZJL;
-        }
-
-        public void setZJL(String ZJL) {
-            this.ZJL = ZJL;
-        }
-
-        public String getHQDATE() {
-            return HQDATE;
-        }
-
-        public void setHQDATE(String HQDATE) {
-            this.HQDATE = HQDATE;
-        }
-
-        public boolean isISHAVEREDPACKET() {
-            return ISHAVEREDPACKET;
-        }
-
-        public void setISHAVEREDPACKET(boolean ISHAVEREDPACKET) {
-            this.ISHAVEREDPACKET = ISHAVEREDPACKET;
-        }
+    public void setISHAVEREDPACKET(boolean ISHAVEREDPACKET) {
+        this.ISHAVEREDPACKET = ISHAVEREDPACKET;
     }
 }

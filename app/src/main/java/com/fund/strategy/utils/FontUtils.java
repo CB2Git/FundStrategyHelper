@@ -9,4 +9,9 @@ public class FontUtils {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         return decimalFormat.format(number);
     }
+
+    public static String number2String(double number,String pattern) {
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        return decimalFormat.format(number);
+    }
 }

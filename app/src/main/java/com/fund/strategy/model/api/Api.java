@@ -2,7 +2,7 @@ package com.fund.strategy.model.api;
 
 import com.fund.strategy.model.api.entity.FundHistroyInfo;
 import com.fund.strategy.model.api.entity.FundInfo;
-import com.fund.strategy.model.api.entity.FundLatestInfo;
+import com.fund.strategy.model.api.entity.FundLatestInfoData;
 import com.fund.strategy.model.api.entity.HangQingInfoData;
 
 import io.reactivex.Single;
@@ -23,7 +23,7 @@ public interface Api {
      */
     @FormUrlEncoded
     @POST("FundMNewApi/FundMNFInfo")
-    Single<FundLatestInfo> queryFundLastestInfo(@Field("Fcodes") String fcodes);
+    Single<FundLatestInfoData> queryFundLastestInfo(@Field("Fcodes") String fcodes);
 
     /**
      * 查询基金信息
