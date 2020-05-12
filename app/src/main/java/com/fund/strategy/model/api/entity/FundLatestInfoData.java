@@ -112,30 +112,4 @@ public class FundLatestInfoData {
     public void setDatas(List<FundLatestInfo> Datas) {
         this.Datas = Datas;
     }
-
-    public static class ExpansionBean {
-        /**
-         * GZTIME : 2020-04-30
-         * FSRQ : 2020-04-29
-         */
-
-        private String GZTIME;
-        private String FSRQ;
-
-        public String getGZTIME() {
-            return GZTIME;
-        }
-
-        public void setGZTIME(String GZTIME) {
-            this.GZTIME = GZTIME;
-        }
-
-        public String getFSRQ() {
-            return FSRQ;
-        }
-
-        public void setFSRQ(String FSRQ) {
-            this.FSRQ = FSRQ;
-        }
-    }
 }

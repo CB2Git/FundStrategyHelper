@@ -1,22 +1,60 @@
 package com.fund.strategy.ui.adapter;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.view.View;
+
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.fund.strategy.R;
 import com.fund.strategy.databinding.ItemChiyouBinding;
+import com.fund.strategy.databinding.ItemChiyouTitleBinding;
 import com.fund.strategy.model.api.entity.FundLatestInfo;
+import com.fund.strategy.utils.DateUtils;
 import com.fund.strategy.utils.FontUtils;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ChiYouAdapter extends BaseQuickAdapter<FundLatestInfo, BaseDataBindingHolder<ItemChiyouBinding>> {
+import java.util.Date;
+
+import androidx.databinding.DataBindingUtil;
+
+public class ChiYouAdapter extends BaseMultiItemQuickAdapter<FundLatestInfo, BaseViewHolder> {
     public ChiYouAdapter() {
-        super(R.layout.item_chiyou);
+        super();
+        addItemType(FundLatestInfo.TYPE_TOP, R.layout.item_chiyou_title);
+        addItemType(FundLatestInfo.TYPE_NORMAL, R.layout.item_chiyou);
     }
 
     @Override
-    protected void convert(@NotNull BaseDataBindingHolder<ItemChiyouBinding> holder, FundLatestInfo fundLatestInfo) {
-        ItemChiyouBinding dataBinding = holder.getDataBinding();
+    protected void convert(@NotNull BaseViewHolder holder, FundLatestInfo fundLatestInfo) {
+
+        if (holder.getItemViewType() == FundLatestInfo.TYPE_NORMAL) {
+            bindToNormal(holder, fundLatestInfo);
+        }
+
+        if (holder.getItemViewType() == FundLatestInfo.TYPE_TOP) {
+            bindToTitle(holder, fundLatestInfo);
+        }
+    }
+
+    private void bindToTitle(BaseViewHolder holder, FundLatestInfo fundLatestInfo) {
+        ItemChiyouTitleBinding binding = DataBindingUtil.bind(holder.itemView);
+
+        if (binding == null) {
+            return;
+        }
+
+        Date date1 = DateUtils.str2Date(fundLatestInfo.getExpansionBean().getGZTIME());
+        Date date2 = DateUtils.str2Date(fundLatestInfo.getExpansionBean().getFSRQ());
+
+        binding.tvToday.setText(DateUtils.date2str(date1, "MM-dd"));
+        binding.tvDayBefore.setText(DateUtils.date2str(date2, "MM-dd"));
+    }
+
+    private void bindToNormal(BaseViewHolder holder, FundLatestInfo fundLatestInfo) {
+
+        ItemChiyouBinding dataBinding = DataBindingUtil.bind(holder.itemView);
 
         if (dataBinding == null) {
             return;
@@ -30,28 +68,53 @@ public class ChiYouAdapter extends BaseQuickAdapter<FundLatestInfo, BaseDataBind
         dataBinding.tvPriceDayBefore.setText(FontUtils.number2String(fundLatestInfo.getNAV(), "0.0000"));
         dataBinding.tvPercentageDayBefore.setText(FontUtils.number2String(fundLatestInfo.getNAVCHGRT(), "0.00") + "%");
 
+        int riseColor = getContext().getResources().getColor(R.color.rise_color);
+        int fallColor = getContext().getResources().getColor(R.color.fall_color);
+        int defaultColor = getContext().getResources().getColor(R.color.default_color);
 
         if (fundLatestInfo.getGSZZL() > 0) {
-            dataBinding.tvPriceToday.setTextColor(getContext().getResources().getColor(R.color.rise_color));
-            dataBinding.tvPercentageToday.setTextColor(getContext().getResources().getColor(R.color.rise_color));
+            dataBinding.tvPriceToday.setTextColor(riseColor);
+            dataBinding.tvPercentageToday.setTextColor(riseColor);
         } else if (fundLatestInfo.getGSZZL() < 0) {
-            dataBinding.tvPriceToday.setTextColor(getContext().getResources().getColor(R.color.fall_color));
-            dataBinding.tvPercentageToday.setTextColor(getContext().getResources().getColor(R.color.fall_color));
+            dataBinding.tvPriceToday.setTextColor(fallColor);
+            dataBinding.tvPercentageToday.setTextColor(fallColor);
         } else {
-            dataBinding.tvPriceToday.setTextColor(getContext().getResources().getColor(R.color.default_color));
-            dataBinding.tvPercentageToday.setTextColor(getContext().getResources().getColor(R.color.default_color));
+            dataBinding.tvPriceToday.setTextColor(defaultColor);
+            dataBinding.tvPercentageToday.setTextColor(defaultColor);
         }
 
+        int color = defaultColor;
 
         if (fundLatestInfo.getNAVCHGRT() > 0) {
-            dataBinding.tvPriceDayBefore.setTextColor(getContext().getResources().getColor(R.color.rise_color));
-            dataBinding.tvPercentageDayBefore.setTextColor(getContext().getResources().getColor(R.color.rise_color));
+            color = riseColor;
+            dataBinding.tvPriceDayBefore.setTextColor(riseColor);
+            dataBinding.tvPercentageDayBefore.setTextColor(riseColor);
         } else if (fundLatestInfo.getNAVCHGRT() < 0) {
-            dataBinding.tvPriceDayBefore.setTextColor(getContext().getResources().getColor(R.color.fall_color));
-            dataBinding.tvPercentageDayBefore.setTextColor(getContext().getResources().getColor(R.color.fall_color));
+            color = fallColor;
+            dataBinding.tvPriceDayBefore.setTextColor(fallColor);
+            dataBinding.tvPercentageDayBefore.setTextColor(fallColor);
         } else {
-            dataBinding.tvPriceDayBefore.setTextColor(getContext().getResources().getColor(R.color.default_color));
-            dataBinding.tvPercentageDayBefore.setTextColor(getContext().getResources().getColor(R.color.default_color));
+            dataBinding.tvPriceDayBefore.setTextColor(defaultColor);
+            dataBinding.tvPercentageDayBefore.setTextColor(defaultColor);
         }
+
+        //最新交易日
+        String gztime = fundLatestInfo.getGZTIME();
+        //前一个交易日
+        String pdate = fundLatestInfo.getPDATE();
+
+        boolean isUpdateToday = gztime.startsWith(pdate);
+        dataBinding.lvIcon.setVisibility(isUpdateToday ? View.VISIBLE : View.INVISIBLE);
+        if (isUpdateToday) {
+            Drawable drawable = generateBg(color);
+            dataBinding.lvIcon.setBackground(drawable);
+        }
+    }
+
+    private Drawable generateBg(int color) {
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setCornerRadius(500);
+        drawable.setColor(color);
+        return drawable;
     }
 }

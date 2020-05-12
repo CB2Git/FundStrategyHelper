@@ -1,6 +1,8 @@
 package com.fund.strategy.model.api.entity;
 
-public class FundLatestInfo {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+public class FundLatestInfo implements MultiItemEntity {
     /**
      * FCODE : 005919
      * SHORTNAME : 天弘中证500指数C
@@ -18,6 +20,10 @@ public class FundLatestInfo {
      * ISHAVEREDPACKET : false
      */
 
+    public static final int TYPE_NORMAL = 0;
+
+    public static final int TYPE_TOP = 1;
+
     private String FCODE;
     private String SHORTNAME;
     private String PDATE;
@@ -32,6 +38,25 @@ public class FundLatestInfo {
     private String ZJL;
     private String HQDATE;
     private boolean ISHAVEREDPACKET;
+    private ExpansionBean mExpansionBean;
+    private int mType = TYPE_NORMAL;
+
+    public ExpansionBean getExpansionBean() {
+        return mExpansionBean;
+    }
+
+    public void setExpansionBean(ExpansionBean expansionBean) {
+        mExpansionBean = expansionBean;
+    }
+
+    public int getType() {
+        return mType;
+    }
+
+    public FundLatestInfo setType(int type) {
+        mType = type;
+        return this;
+    }
 
     public String getFCODE() {
         return FCODE;
@@ -143,5 +168,10 @@ public class FundLatestInfo {
 
     public void setISHAVEREDPACKET(boolean ISHAVEREDPACKET) {
         this.ISHAVEREDPACKET = ISHAVEREDPACKET;
+    }
+
+    @Override
+    public int getItemType() {
+        return mType;
     }
 }

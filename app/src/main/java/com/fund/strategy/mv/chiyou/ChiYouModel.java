@@ -5,6 +5,7 @@ import android.app.Application;
 import com.cc.baselib.mvvm.BaseViewModel;
 import com.cc.baselib.mvvm.data.Resource;
 import com.fund.strategy.model.api.RetrofitManager;
+import com.fund.strategy.model.api.entity.ExpansionBean;
 import com.fund.strategy.model.api.entity.FundLatestInfo;
 import com.fund.strategy.model.api.entity.FundLatestInfoData;
 import com.fund.strategy.utils.RxUtils;
@@ -32,11 +33,21 @@ public class ChiYouModel extends BaseViewModel {
 
     public void reqChiYouInfo() {
         Disposable subscribe = RetrofitManager.getApiService()
-                .queryFundLastestInfo("005919,005918,001618")
+                .queryFundLastestInfo("005919,005918,001618,001595")
                 .map(new Function<FundLatestInfoData, List<FundLatestInfo>>() {
                     @Override
                     public List<FundLatestInfo> apply(FundLatestInfoData fundLatestInfoData) throws Exception {
-                        return fundLatestInfoData.getDatas();
+                        List<FundLatestInfo> datas = fundLatestInfoData.getDatas();
+
+                        ExpansionBean expansion = fundLatestInfoData.getExpansion();
+                        FundLatestInfo titleBean = new FundLatestInfo();
+                        titleBean.setType(FundLatestInfo.TYPE_TOP);
+                        datas.add(0, titleBean);
+
+                        for (FundLatestInfo info : datas) {
+                            info.setExpansionBean(expansion);
+                        }
+                        return datas;
                     }
                 })
                 .doOnSubscribe(new Consumer<Disposable>() {
