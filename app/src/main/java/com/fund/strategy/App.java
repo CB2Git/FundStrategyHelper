@@ -2,17 +2,13 @@ package com.fund.strategy;
 
 import android.app.Application;
 
+import com.jingewenku.abrahamcaijin.commonutil.application.AppUtils;
+
 public class App extends Application {
-
-    private static Application sApp;
-
-    public static Application getApplication() {
-        return sApp;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sApp = this;
+        AppUtils.init(this);
     }
 }

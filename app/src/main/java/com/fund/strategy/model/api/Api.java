@@ -2,6 +2,7 @@ package com.fund.strategy.model.api;
 
 import com.fund.strategy.model.api.entity.FundHistroyInfo;
 import com.fund.strategy.model.api.entity.FundInfo;
+import com.fund.strategy.model.api.entity.FundInfo2;
 import com.fund.strategy.model.api.entity.FundLatestInfoData;
 import com.fund.strategy.model.api.entity.HangQingInfoData;
 
@@ -34,6 +35,10 @@ public interface Api {
     @POST("FundMNewApi/FundMNNBasicInformation")
     Single<FundInfo> queryFundInfo(@Field("FCODE") String code);
 
+    @GET("FundMSearchApi/FundSearchNewFunds")
+    @Headers({"url:https://appsuggest.1234567.com.cn/"})
+    Single<FundInfo2> searchFunds(@Query("KEY") String key);
+
     /**
      * 查询基金历史净值信息
      */
@@ -42,8 +47,7 @@ public interface Api {
     Single<FundHistroyInfo> queryHistroyInfo(@Field("FCODE") String code, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
     /**
-     *
-     * @param category  主要指数 zyzs  行业指数  hyzs
+     * @param category 主要指数 zyzs  行业指数  hyzs
      * @return
      */
     @GET("djapi/v3/index/quotes")

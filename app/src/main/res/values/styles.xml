@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <declare-styleable name="AutoSwitchVisibilityLayout">
+        <attr name="defaultShowId" format="reference" />
+        <attr name="errorLayout" format="reference" />
+        <attr name="loadingLayout" format="reference" />
+        <attr name="emptyLayout" format="reference" />
+    </declare-styleable>
 </resources>

@@ -3,6 +3,7 @@ package com.fund.strategy.model.api;
 import android.text.TextUtils;
 
 import com.fund.strategy.App;
+import com.jingewenku.abrahamcaijin.commonutil.application.AppUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +35,7 @@ public class OkHttpManager {
             synchronized (OkHttpManager.class) {
                 if (okHttpClient == null) {
                     // 指定缓存路径,缓存大小50Mb
-                    Cache cache = new Cache(new File(App.getApplication().getCacheDir(), "HttpCache"), 1024 * 1024 * 50);
+                    Cache cache = new Cache(new File(AppUtils.getContext().getCacheDir(), "HttpCache"), 1024 * 1024 * 50);
                     if (okHttpClient == null) {
                         okHttpClient = new OkHttpClient.Builder()
                                 .cache(cache)

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -13,29 +15,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_search_root_bg"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_search_black_24dp" />
 
             <EditText
                 android:id="@+id/search_code"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_weight="1"
-                android:hint="请输入基金编码" />
-
-            <Button
-                android:id="@+id/search_fund"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索" />
+                android:background="@null"
+                android:hint="请输入基金编码"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:singleLine="true" />
 
         </LinearLayout>
 
 
-        <TextView
+        <com.fund.strategy.ui.widget.AutoSwitchVisibilityLayout
             android:id="@+id/search_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:text="23333" />
+            android:layout_marginTop="15dp">
+
+            <ProgressBar
+                android:id="@+id/search_loading"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/search_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="搜索出错了，请重试" />
+
+            <include
+                android:id="@+id/search_result_root"
+                layout="@layout/part_of_search_result" />
+
+        </com.fund.strategy.ui.widget.AutoSwitchVisibilityLayout>
 
     </LinearLayout>
 </layout>

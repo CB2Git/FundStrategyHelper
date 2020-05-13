@@ -41,6 +41,7 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.3'
 
+    implementation 'com.abrahamcaijin.commonutil:CommonUtil:1.0.3'
     implementation 'com.qmuiteam:qmui:2.0.0-alpha08'
 
     def room_version = "2.2.5"
