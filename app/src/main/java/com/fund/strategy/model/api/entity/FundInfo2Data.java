@@ -2,7 +2,7 @@ package com.fund.strategy.model.api.entity;
 
 import java.util.List;
 
-public class FundInfo2 {
+public class FundInfo2Data {
 
     /**
      * Datas : [{"FCODE":"290010","ShowFCode":"290010","T":"X","FTYPE":"股票指数","SHORTNAME":"泰信中证200指数","P":"F","HIGHTLIGHT":"290010_泰信<font color='#ff4400'>中<\/font><font color='#ff4400'>证<\/font><font color='#ff4400'>2<\/font>00指数","DEBUGFIELD":null,"SYL":"5.57","SYLTYPE":"近1月","IsDelisting":false,"FCodeType":0,"SecondFCodeType":0,"ABBNAME":"TXZZ200ZS","ABBTNAME":"TAIXINZHONGZHENG200ZHISHU","EsScore":null,"ForeShortName":"泰信中证200指数","NEWTEXCH":null,"OrderISBUY":0,"OrderSYL_Y":""},{"FCODE":"160808","ShowFCode":"160808","T":"X","FTYPE":"股票指数","SHORTNAME":"长盛同瑞中证200分级","P":"F","HIGHTLIGHT":"160808_长盛同瑞<font color='#ff4400'>中<\/font><font color='#ff4400'>证<\/font><font color='#ff4400'>2<\/font>00分级","DEBUGFIELD":null,"SYL":"7.22","SYLTYPE":"近1月","IsDelisting":false,"FCodeType":0,"SecondFCodeType":0,"ABBNAME":"CSTRZZ200FJ","ABBTNAME":"CHANGSHENGTONGRUIZHONGZHENG200FENJI","EsScore":null,"ForeShortName":"长盛同瑞中证200分级","NEWTEXCH":null,"OrderISBUY":0,"OrderSYL_Y":""}]
@@ -26,7 +26,7 @@ public class FundInfo2 {
     private Object ErrorMsgLst;
     private int TotalCount;
     private String Expansion;
-    private List<DatasBean> Datas;
+    private List<FundInfo2> Datas;
 
     public int getErrCode() {
         return ErrCode;
@@ -100,15 +100,15 @@ public class FundInfo2 {
         this.Expansion = Expansion;
     }
 
-    public List<DatasBean> getDatas() {
+    public List<FundInfo2> getDatas() {
         return Datas;
     }
 
-    public void setDatas(List<DatasBean> Datas) {
+    public void setDatas(List<FundInfo2> Datas) {
         this.Datas = Datas;
     }
 
-    public static class DatasBean {
+    public static class FundInfo2 {
         /**
          * FCODE : 290010
          * ShowFCode : 290010
@@ -140,7 +140,7 @@ public class FundInfo2 {
         private String P;
         private String HIGHTLIGHT;
         private Object DEBUGFIELD;
-        private String SYL;
+        private float SYL;
         private String SYLTYPE;
         private boolean IsDelisting;
         private int FCodeType;
@@ -217,11 +217,11 @@ public class FundInfo2 {
             this.DEBUGFIELD = DEBUGFIELD;
         }
 
-        public String getSYL() {
+        public float getSYL() {
             return SYL;
         }
 
-        public void setSYL(String SYL) {
+        public void setSYL(float SYL) {
             this.SYL = SYL;
         }
 

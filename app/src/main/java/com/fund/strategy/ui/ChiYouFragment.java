@@ -55,7 +55,7 @@ public class ChiYouFragment extends BaseMVVMFragment<MainFragmentChiyouBinding, 
                     mBinding.mainRefreshLayout.setRefreshing(true);
                 } else if (listResource.status == Resource.Status.ERROR) {
                     mBinding.mainRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), listResource.message, Toast.LENGTH_SHORT).show();
                 } else {
                     mBinding.mainRefreshLayout.setRefreshing(false);
                     mChiYouAdapter.setNewInstance(listResource.data);

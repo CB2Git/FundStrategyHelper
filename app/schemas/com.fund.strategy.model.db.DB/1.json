@@ -1,0 +1,47 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2c885edb973f9610a06a9d1b3546a3ba",
+    "entities": [
+      {
+        "tableName": "ChiYouEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fund_no` TEXT NOT NULL, `fund_name` TEXT, `fund_type` INTEGER NOT NULL DEFAULT 1, PRIMARY KEY(`fund_no`))",
+        "fields": [
+          {
+            "fieldPath": "fundNo",
+            "columnName": "fund_no",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fundName",
+            "columnName": "fund_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fundType",
+            "columnName": "fund_type",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "fund_no"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2c885edb973f9610a06a9d1b3546a3ba')"
+    ]
+  }
+}

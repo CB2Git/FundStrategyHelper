@@ -192,7 +192,7 @@ public class AutoSwitchVisibilityLayout extends FrameLayout {
             return;
         }
 
-        for (int i = 0; i < childCount; i++) {
+         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
             if (childAt.equals(view)) {
                 childAt.setVisibility(View.VISIBLE);

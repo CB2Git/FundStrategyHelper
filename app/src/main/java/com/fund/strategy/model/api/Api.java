@@ -2,7 +2,7 @@ package com.fund.strategy.model.api;
 
 import com.fund.strategy.model.api.entity.FundHistroyInfo;
 import com.fund.strategy.model.api.entity.FundInfo;
-import com.fund.strategy.model.api.entity.FundInfo2;
+import com.fund.strategy.model.api.entity.FundInfo2Data;
 import com.fund.strategy.model.api.entity.FundLatestInfoData;
 import com.fund.strategy.model.api.entity.HangQingInfoData;
 
@@ -37,7 +37,7 @@ public interface Api {
 
     @GET("FundMSearchApi/FundSearchNewFunds")
     @Headers({"url:https://appsuggest.1234567.com.cn/"})
-    Single<FundInfo2> searchFunds(@Query("KEY") String key);
+    Single<FundInfo2Data> searchFunds(@Query("KEY") String key);
 
     /**
      * 查询基金历史净值信息

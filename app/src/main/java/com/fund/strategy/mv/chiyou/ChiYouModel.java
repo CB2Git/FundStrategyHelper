@@ -1,6 +1,7 @@
 package com.fund.strategy.mv.chiyou;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.cc.baselib.mvvm.BaseViewModel;
 import com.cc.baselib.mvvm.data.Resource;
@@ -8,6 +9,8 @@ import com.fund.strategy.model.api.RetrofitManager;
 import com.fund.strategy.model.api.entity.ExpansionBean;
 import com.fund.strategy.model.api.entity.FundLatestInfo;
 import com.fund.strategy.model.api.entity.FundLatestInfoData;
+import com.fund.strategy.model.db.DB;
+import com.fund.strategy.model.db.entity.ChiYouTuple;
 import com.fund.strategy.utils.RxUtils;
 
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -32,12 +37,48 @@ public class ChiYouModel extends BaseViewModel {
     }
 
     public void reqChiYouInfo() {
-        Disposable subscribe = RetrofitManager.getApiService()
-                .queryFundLastestInfo("005919,005918,001618,001595")
+
+
+        List<ChiYouTuple> chiYopuTuples = DB.getInstance().chiyouDao().queryAllFundNo();
+
+        Disposable subscribe = Single.just(chiYopuTuples)
+                .map(new Function<List<ChiYouTuple>, String>() {
+                    @Override
+                    public String apply(List<ChiYouTuple> chiYopuTuples) throws Exception {
+
+                        StringBuilder stringBuffer = new StringBuilder();
+
+                        for (int i = 0; i < chiYopuTuples.size(); i++) {
+                            stringBuffer.append(chiYopuTuples.get(i).fundNo);
+
+                            if (i < chiYopuTuples.size() - 1) {
+                                stringBuffer.append(",");
+                            }
+                        }
+
+                        return stringBuffer.toString();
+                    }
+                })
+                .flatMap(new Function<String, SingleSource<FundLatestInfoData>>() {
+                    @Override
+                    public SingleSource<FundLatestInfoData> apply(String s) throws Exception {
+
+                        if (TextUtils.isEmpty(s)) {
+                            throw new IllegalArgumentException("没有数据哦");
+                        }
+
+                        return RetrofitManager.getApiService()
+                                .queryFundLastestInfo(s);
+                    }
+                })
                 .map(new Function<FundLatestInfoData, List<FundLatestInfo>>() {
                     @Override
                     public List<FundLatestInfo> apply(FundLatestInfoData fundLatestInfoData) throws Exception {
                         List<FundLatestInfo> datas = fundLatestInfoData.getDatas();
+
+                        if (datas == null || datas.size() <= 0) {
+                            throw new IllegalArgumentException("没有数据哦");
+                        }
 
                         ExpansionBean expansion = fundLatestInfoData.getExpansion();
                         FundLatestInfo titleBean = new FundLatestInfo();
@@ -65,7 +106,7 @@ public class ChiYouModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mFundLatestInfo.postValue(Resource.error(""));
+                        mFundLatestInfo.postValue(Resource.error(throwable.getMessage()));
                     }
                 });
         addDisposable(subscribe);

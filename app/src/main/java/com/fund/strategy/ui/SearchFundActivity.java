@@ -10,25 +10,27 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.cc.baselib.mvvm.BaseMVVMActivity;
-import com.cc.baselib.mvvm.BaseViewModel;
 import com.cc.baselib.mvvm.data.Resource;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder;
 import com.fund.strategy.R;
+import com.fund.strategy.databinding.ItemSearchFundBinding;
 import com.fund.strategy.databinding.SearchFundBinding;
-import com.fund.strategy.model.api.RetrofitManager;
-import com.fund.strategy.model.api.entity.FundInfo;
-import com.fund.strategy.model.api.entity.FundInfo2;
+import com.fund.strategy.model.api.entity.FundInfo2Data;
 import com.fund.strategy.mv.search.SearchViewModel;
-import com.fund.strategy.utils.RxUtils;
+import com.fund.strategy.ui.adapter.SearchFundAdapter;
 import com.jingewenku.abrahamcaijin.commonutil.AppKeyBoardMgr;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class SearchFundActivity extends BaseMVVMActivity<SearchFundBinding, SearchViewModel> implements TextView.OnEditorActionListener {
+
+    private SearchFundAdapter mSearchFundAdapter = new SearchFundAdapter();
 
     @Override
     protected int getLayoutId() {
@@ -47,6 +49,22 @@ public class SearchFundActivity extends BaseMVVMActivity<SearchFundBinding, Sear
         mBinding.searchCode.setOnEditorActionListener(this);
         mBinding.searchCode.post(() -> AppKeyBoardMgr.openKeybord(mBinding.searchCode, SearchFundActivity.this));
 
+        mBinding.searchResultRoot.fundRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.searchResultRoot.fundRecycleView.setAdapter(mSearchFundAdapter);
+
+        mSearchFundAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                Object item = adapter.getItem(position);
+
+                if (item instanceof FundInfo2Data.FundInfo2) {
+                    FundInfo2Data.FundInfo2 fundInfo2 = (FundInfo2Data.FundInfo2) item;
+                    mViewModel.addCollection(fundInfo2);
+                }
+
+            }
+        });
+
     }
 
     public static void start(Context context) {
@@ -57,11 +75,12 @@ public class SearchFundActivity extends BaseMVVMActivity<SearchFundBinding, Sear
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel.getFundInfo().observe(this, new Observer<Resource<FundInfo2>>() {
+        mViewModel.getFundInfo().observe(this, new Observer<Resource<FundInfo2Data>>() {
             @Override
-            public void onChanged(Resource<FundInfo2> fundInfoResource) {
+            public void onChanged(Resource<FundInfo2Data> fundInfoResource) {
                 if (fundInfoResource.status == Resource.Status.SUCCESS) {
-
+                    mSearchFundAdapter.setList(fundInfoResource.data.getDatas());
+                    mBinding.searchResult.showVisibilityById(R.id.search_result_root);
                 } else if (fundInfoResource.status == Resource.Status.LOADING) {
                     mBinding.searchResult.showVisibilityByView(mBinding.searchLoading);
                 } else {
