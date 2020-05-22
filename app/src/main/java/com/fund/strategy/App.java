@@ -1,10 +1,11 @@
 package com.fund.strategy;
 
-import android.app.Application;
 
 import com.jingewenku.abrahamcaijin.commonutil.application.AppUtils;
 
-public class App extends Application {
+import androidx.multidex.MultiDexApplication;
+
+public class App extends MultiDexApplication {
 
     @Override
     public void onCreate() {

@@ -5,6 +5,9 @@ import com.fund.strategy.model.api.entity.FundInfo;
 import com.fund.strategy.model.api.entity.FundInfo2Data;
 import com.fund.strategy.model.api.entity.FundLatestInfoData;
 import com.fund.strategy.model.api.entity.HangQingInfoData;
+import com.fund.strategy.model.api.entity.HistoryFundChangeBean;
+import com.fund.strategy.model.api.entity.TodayFundChangeBean;
+import com.fund.strategy.model.api.entity.ZhiShuChangeBean;
 
 import io.reactivex.Single;
 import retrofit2.http.Field;
@@ -53,4 +56,31 @@ public interface Api {
     @GET("djapi/v3/index/quotes")
     @Headers({"url:https://danjuanfunds.com/"})
     Single<HangQingInfoData> hangQingInfo(@Query("category") String category);
+
+
+    /**
+     * 获取基金当天的净值变化
+     */
+    @GET("/FundMApi/FundVarietieValuationDetail.ashx")
+    Single<TodayFundChangeBean> queryTodayChange(@Field("FCODE") String code);
+
+
+    /**
+     * 获取基金历史的净值变化
+     *
+     * @param code
+     * @param range     月 y  季度 3y 半年 6y 一年 12y
+     * @param timestamp 当天的时间戳 毫秒
+     */
+    @POST("/FundMApi/FundFavorNetDiagram.ashx")
+    Single<HistoryFundChangeBean> queryHistroyChange(@Field("FCODE") String code, @Field("RANGE") String range, @Field("ReqNo") long timestamp);
+
+    /**
+     * 获取指数的今天趋势变化
+     *
+     * @return
+     */
+    @GET("/api/qt/stock/trends2/get")
+    @Headers({"url:https://push2.eastmoney.com/"})
+    Single<ZhiShuChangeBean> queryZhiShuChange(@Query("secid") String secid, @Query("fields1") String fields1, @Query("fields2") String fields2);
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.fund.strategy.databinding.MainActivityBinding;
 import com.fund.strategy.ui.HangQingFragment;
 import com.fund.strategy.ui.ChiYouFragment;
+import com.fund.strategy.ui.ZhiShuChangeFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,20 +33,23 @@ public class MainActivity extends AppCompatActivity {
         mBinding.mainTabLayout.setupWithViewPager(mBinding.mainViewPager);
         mBinding.mainViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-            private String[] mTitle = new String[]{"持有", "行情"};
+            private String[] mTitle = new String[]{"持有", "行情", "趋势"};
 
             @NonNull
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) {
                     return ChiYouFragment.newInstance();
+                } else if (position == 1) {
+                    return HangQingFragment.newInstance();
+                } else {
+                    return ZhiShuChangeFragment.newInstance();
                 }
-                return HangQingFragment.newInstance();
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 3;
             }
 
             @Nullable

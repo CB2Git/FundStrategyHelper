@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fund_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="上证500" />
+
+        <TextView
+            android:id="@+id/fund_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="@+id/fund_title"
+            app:layout_constraintTop_toBottomOf="@+id/fund_title"
+            tools:text="2800" />
+
+        <TextView
+            android:id="@+id/fund_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/fund_points"
+            app:layout_constraintStart_toEndOf="@+id/fund_points"
+            tools:text="-10.00%" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/fund_chart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fund_points" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
