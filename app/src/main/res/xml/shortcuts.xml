@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_zhichan"
+        android:shortcutId="static shortcut1"
+        android:shortcutShortLabel="@string/compose_shortcut_short_label1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="content://com.fund.strategy/0"
+            android:targetClass="com.fund.strategy.MainActivity"
+            android:targetPackage="com.fund.strategy" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_ca"
+        android:shortcutId="static shortcut2"
+        android:shortcutShortLabel="@string/compose_shortcut_short_label2">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="content://com.fund.strategy/1"
+            android:targetClass="com.fund.strategy.MainActivity"
+            android:targetPackage="com.fund.strategy" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_qushi"
+        android:shortcutId="static shortcut3"
+        android:shortcutShortLabel="@string/compose_shortcut_short_label3">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="content://com.fund.strategy/2"
+            android:targetClass="com.fund.strategy.MainActivity"
+            android:targetPackage="com.fund.strategy" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

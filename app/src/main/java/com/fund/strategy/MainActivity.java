@@ -1,5 +1,6 @@
 package com.fund.strategy;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.fund.strategy.databinding.MainActivityBinding;
@@ -27,6 +28,16 @@ public class MainActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
 
         setupViewPager();
+
+        Uri data = getIntent().getData();
+        if (data != null && data.getPathSegments() != null && data.getPathSegments().size() > 0) {
+            String s = data.getPathSegments().get(0);
+            try {
+                mBinding.mainViewPager.setCurrentItem(Integer.valueOf(s));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setupViewPager() {

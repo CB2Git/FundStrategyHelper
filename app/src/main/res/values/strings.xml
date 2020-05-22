@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">策略助手</string>
+
+    <string name="compose_shortcut_short_label1">持有</string>
+    <string name="compose_shortcut_short_label2">行情</string>
+    <string name="compose_shortcut_short_label3">趋势</string>
 </resources>
