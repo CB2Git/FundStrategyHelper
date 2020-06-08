@@ -16,6 +16,9 @@ public interface ChiYouDao {
     @Query("select fund_no from chiyouentity")
     List<ChiYouTuple> queryAllFundNo();
 
+    @Query("select * from chiyouentity")
+    List<ChiYouEntity> queryAllFund();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertFunds(List<ChiYouEntity> entities);
 

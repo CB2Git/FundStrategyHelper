@@ -62,7 +62,7 @@ public interface Api {
      * 获取基金当天的净值变化
      */
     @GET("/FundMApi/FundVarietieValuationDetail.ashx")
-    Single<TodayFundChangeBean> queryTodayChange(@Field("FCODE") String code);
+    Single<TodayFundChangeBean> queryTodayChange(@Query("FCODE") String code);
 
 
     /**

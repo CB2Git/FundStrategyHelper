@@ -82,8 +82,8 @@ public class TodayFundChangeBean {
         private String FCODE;
         private String SHORTNAME;
         private String GZTIME;
-        private String GZ;
-        private String GSZZL;
+        private float GZ;//最新净值
+        private float GSZZL;//最新百分比
         private String GZZF;
         private String SGZT;
         private String SHZT;
@@ -120,19 +120,19 @@ public class TodayFundChangeBean {
             this.GZTIME = GZTIME;
         }
 
-        public String getGZ() {
+        public float getGZ() {
             return GZ;
         }
 
-        public void setGZ(String GZ) {
+        public void setGZ(float GZ) {
             this.GZ = GZ;
         }
 
-        public String getGSZZL() {
+        public float getGSZZL() {
             return GSZZL;
         }
 
-        public void setGSZZL(String GSZZL) {
+        public void setGSZZL(float GSZZL) {
             this.GSZZL = GSZZL;
         }
 

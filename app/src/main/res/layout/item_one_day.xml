@@ -24,7 +24,7 @@
             tools:text="上证500" />
 
         <TextView
-            android:id="@+id/fund_now_points"
+            android:id="@+id/fund_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

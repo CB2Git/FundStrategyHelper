@@ -24,6 +24,7 @@ public class ChiYouAdapter extends BaseMultiItemQuickAdapter<FundLatestInfo, Bas
         super();
         addItemType(FundLatestInfo.TYPE_TOP, R.layout.item_chiyou_title);
         addItemType(FundLatestInfo.TYPE_NORMAL, R.layout.item_chiyou);
+        addChildClickViewIds(R.id.lv_switch);
     }
 
     @Override

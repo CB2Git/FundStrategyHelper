@@ -5,8 +5,8 @@ import android.graphics.Color;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder;
 import com.fund.strategy.R;
-import com.fund.strategy.databinding.ItemZhishuBinding;
-import com.fund.strategy.model.data.ZhiShuChangeWrapper;
+import com.fund.strategy.databinding.ItemOneDayBinding;
+import com.fund.strategy.model.data.OneDayWrapper;
 import com.fund.strategy.utils.FontUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -23,69 +23,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
-public class ZhiShuAdapter extends BaseQuickAdapter<ZhiShuChangeWrapper, BaseDataBindingHolder<ItemZhishuBinding>> {
-    public ZhiShuAdapter() {
-        super(R.layout.item_zhishu);
+public class OneDayAdapter extends BaseQuickAdapter<OneDayWrapper, BaseDataBindingHolder<ItemOneDayBinding>> {
+    public OneDayAdapter() {
+        super(R.layout.item_one_day);
     }
 
     @Override
-    protected void convert(@NotNull BaseDataBindingHolder<ItemZhishuBinding> bindingHolder, ZhiShuChangeWrapper zhiShuChangeWrapper) {
-        ItemZhishuBinding binding = bindingHolder.getDataBinding();
+    protected void convert(@NotNull BaseDataBindingHolder<ItemOneDayBinding> dataBindingHolder, OneDayWrapper oneDayWrapper) {
+        ItemOneDayBinding dataBinding = dataBindingHolder.getDataBinding();
 
-        if (binding == null) {
+        if (dataBinding == null) {
             return;
         }
 
-        binding.fundTitle.setText(zhiShuChangeWrapper.getTitle());
-        binding.fundPoints.setText(FontUtils.number2String(zhiShuChangeWrapper.getDiffPoints()));
-        binding.fundChange.setText(FontUtils.number2String(zhiShuChangeWrapper.getDiffPercentage(), "0.00%"));
-        binding.fundNowPoints.setText(FontUtils.number2String(zhiShuChangeWrapper.getNewPoints()));
+        dataBinding.fundTitle.setText(oneDayWrapper.getFundName());
+        dataBinding.fundCode.setText(oneDayWrapper.getFundCode());
+        dataBinding.fundChange.setText(String.format(Locale.CHINA, "%.2f%%", oneDayWrapper.getTodayChange()));
+        dataBinding.fundPoints.setText(FontUtils.number2String(oneDayWrapper.getNowGZ(), "0.0000"));
+
+        int riseColor = getContext().getResources().getColor(R.color.rise_color);
+        int fallColor = getContext().getResources().getColor(R.color.fall_color);
+        int defaultColor = getContext().getResources().getColor(R.color.default_color);
 
         int color;
-        if (zhiShuChangeWrapper.getDiffPercentage() >= 0) {
-            color = getContext().getResources().getColor(R.color.rise_color);
-            binding.fundPoints.setTextColor(color);
-            binding.fundChange.setTextColor(color);
-            binding.fundNowPoints.setTextColor(color);
+        if (oneDayWrapper.getTodayChange() > 0) {
+            color = riseColor;
+        } else if (oneDayWrapper.getTodayChange() < 0) {
+            color = fallColor;
         } else {
-            color = getContext().getResources().getColor(R.color.fall_color);
-            binding.fundPoints.setTextColor(color);
-            binding.fundChange.setTextColor(color);
-            binding.fundNowPoints.setTextColor(color);
+            color = defaultColor;
         }
-        LineData lineData = parseLineData(zhiShuChangeWrapper, color);
-        setupChart(binding.fundChart, lineData, zhiShuChangeWrapper);
+        dataBinding.fundChange.setTextColor(color);
+
+        LineData lineData = parseLineData(oneDayWrapper.getPoints(), color);
+
+        setupChart(dataBinding.fundChart, lineData, oneDayWrapper);
     }
 
-    private LineData parseLineData(ZhiShuChangeWrapper zhiShuChangeWrapper, int color) {
-        List<Float> data = zhiShuChangeWrapper.getData();
-        ArrayList<Entry> values = new ArrayList<>();
-
-        for (int i = 0; i < data.size(); i++) {
-            values.add(new Entry(i, data.get(i)));
-        }
-
-        // create a dataset and give it a type
-        LineDataSet set1 = new LineDataSet(values, null);
-        // set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
-
-        set1.setLineWidth(1f);
-        set1.setColor(color);
-        set1.setDrawCircles(false);
-        //set1.setCircleRadius(5f);
-        //set1.setCircleHoleRadius(2.5f);
-        //set1.setCircleColor(Color.RED);
-        set1.setHighLightColor(Color.RED);
-        set1.setDrawValues(false);
-
-        return new LineData(set1);
-
-    }
-
-    private void setupChart(LineChart chart, LineData data, ZhiShuChangeWrapper wrapper) {
-
+    private void setupChart(LineChart chart, LineData data, OneDayWrapper oneDayWrapper) {
         // no description text
         chart.getDescription().setEnabled(false);
 
@@ -108,8 +83,6 @@ public class ZhiShuAdapter extends BaseQuickAdapter<ZhiShuChangeWrapper, BaseDat
         // set custom chart offsets (automatic offset calculation is hereby disabled)
         //chart.setViewPortOffsets(10, 0, 10, 0);
 
-        // add data
-        chart.setData(data);
 
         //不显示label
         chart.getDescription().setEnabled(false);
@@ -123,11 +96,16 @@ public class ZhiShuAdapter extends BaseQuickAdapter<ZhiShuChangeWrapper, BaseDat
         XAxis xAxis = chart.getXAxis();
         //左边Y轴
         YAxis axisLeft = chart.getAxisLeft();
+        axisLeft.resetAxisMinimum();
+        axisLeft.resetAxisMaximum();
 
         //X轴最大值
-        xAxis.setAxisMaximum(wrapper.getMaxCount());
+        xAxis.setAxisMaximum(oneDayWrapper.getPointCount());
 
-        LimitLine llXAxis = new LimitLine((float) wrapper.getTarget(), "");
+        // add data
+        chart.setData(data);
+
+        LimitLine llXAxis = new LimitLine(oneDayWrapper.getTarget(), "");
         //设置基准线
         axisLeft.removeAllLimitLines();
         llXAxis.setLineWidth(1f);
@@ -172,9 +150,43 @@ public class ZhiShuAdapter extends BaseQuickAdapter<ZhiShuChangeWrapper, BaseDat
         axisLeft.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return String.format(Locale.CHINA, "%.2f", value);
+                return String.format(Locale.CHINA, "%.2f%%", value);
             }
         });
 
+        float axisMinimum = axisLeft.getAxisMinimum();
+        float axisMaximum = axisLeft.getAxisMaximum();
+
+        if (Math.abs(axisMinimum) > Math.abs(axisMaximum)) {
+            axisLeft.setAxisMaximum(Math.abs(axisMinimum));
+        } else {
+            axisLeft.setAxisMinimum(-Math.abs(axisMaximum));
+        }
+
+        chart.invalidate();
+    }
+
+    private LineData parseLineData(List<Float> points, int color) {
+
+        ArrayList<Entry> values = new ArrayList<>();
+
+        for (int i = 0; i < points.size(); i++) {
+            values.add(new Entry(i, points.get(i)));
+        }
+
+        LineDataSet set1 = new LineDataSet(values, null);
+        // set1.setFillAlpha(110);
+        // set1.setFillColor(Color.RED);
+
+        set1.setLineWidth(1f);
+        set1.setColor(color);
+        set1.setDrawCircles(false);
+        //set1.setCircleRadius(5f);
+        //set1.setCircleHoleRadius(2.5f);
+        //set1.setCircleColor(Color.RED);
+        set1.setHighLightColor(Color.RED);
+        set1.setDrawValues(false);
+
+        return new LineData(set1);
     }
 }

@@ -74,6 +74,13 @@ public class ChiYouFragment extends BaseMVVMFragment<MainFragmentChiyouBinding, 
         mBinding.mainChiyouList.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.mainChiyouList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mBinding.mainChiyouList.setAdapter(mChiYouAdapter);
+
+        mChiYouAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+
+            if (view.getId() == R.id.lv_switch) {
+                CollectionActivity.start(getActivity());
+            }
+        });
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.fund.strategy;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.cc.baselib.base.BaseActivity;
 import com.fund.strategy.databinding.MainActivityBinding;
 import com.fund.strategy.ui.HangQingFragment;
 import com.fund.strategy.ui.ChiYouFragment;
@@ -18,14 +19,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity<MainActivityBinding> {
 
-    private MainActivityBinding mBinding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+    protected int getLayoutId() {
+        return R.layout.main_activity;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
 
         setupViewPager();
 
