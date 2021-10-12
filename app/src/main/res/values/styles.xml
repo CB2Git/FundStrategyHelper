@@ -15,4 +15,11 @@
         <attr name="loadingLayout" format="reference" />
         <attr name="emptyLayout" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="SwipeItemLayout.Layout">
+        <attr name="layout_itemType">
+            <flag name="main" value="0x01" />
+            <flag name="menu" value="0x02" />
+        </attr>
+    </declare-styleable>
 </resources>

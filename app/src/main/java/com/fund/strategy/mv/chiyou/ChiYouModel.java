@@ -10,9 +10,11 @@ import com.fund.strategy.model.api.entity.ExpansionBean;
 import com.fund.strategy.model.api.entity.FundLatestInfo;
 import com.fund.strategy.model.api.entity.FundLatestInfoData;
 import com.fund.strategy.model.db.DB;
+import com.fund.strategy.model.db.entity.ChiYouEntity;
 import com.fund.strategy.model.db.entity.ChiYouTuple;
 import com.fund.strategy.utils.RxUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -36,11 +38,24 @@ public class ChiYouModel extends BaseViewModel {
         return mFundLatestInfo;
     }
 
+    public ChiYouEntity queryChiYouInfo(String fundNo) {
+        return DB.getInstance().chiyouDao().queryChiYouInfo(fundNo);
+    }
+
+    public void delete(String fundNo) {
+        DB.getInstance().chiyouDao().deleteChiYouInfo(fundNo);
+    }
+
+    public void changeTop(String fundNo, boolean isTop) {
+        if (isTop) {
+            DB.getInstance().chiyouDao().changeIsTop(fundNo);
+        } else {
+            DB.getInstance().chiyouDao().changeNotTop(fundNo);
+        }
+    }
+
     public void reqChiYouInfo() {
-
-
         List<ChiYouTuple> chiYopuTuples = DB.getInstance().chiyouDao().queryAllFundNo();
-
         Disposable subscribe = Single.just(chiYopuTuples)
                 .map(new Function<List<ChiYouTuple>, String>() {
                     @Override
@@ -85,7 +100,18 @@ public class ChiYouModel extends BaseViewModel {
                         titleBean.setType(FundLatestInfo.TYPE_TOP);
                         datas.add(0, titleBean);
 
+                        List<String> topNo = DB.getInstance().chiyouDao().queryAllTop();
+
+                        if (topNo == null) {
+                            topNo = new ArrayList<>();
+                        }
+
                         for (FundLatestInfo info : datas) {
+                            for (int i = 0; i < topNo.size(); i++) {
+                                if (topNo.get(i).equals(info.getFCODE())) {
+                                    info.setTop(true);
+                                }
+                            }
                             info.setExpansionBean(expansion);
                         }
                         return datas;

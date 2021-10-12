@@ -64,8 +64,9 @@ public class ChiYouAdapter extends BaseMultiItemQuickAdapter<FundLatestInfo, Bas
         dataBinding.title.setText(fundLatestInfo.getSHORTNAME());
         dataBinding.tvCode.setText(fundLatestInfo.getFCODE());
 
-        dataBinding.tvPriceToday.setText(FontUtils.number2String(fundLatestInfo.getGSZ(), "0.0000"));
-        dataBinding.tvPercentageToday.setText(FontUtils.number2String(fundLatestInfo.getGSZZL(), "0.00") + "%");
+
+        dataBinding.tvPriceToday.setText(FontUtils.number2String(FontUtils.str2Double(fundLatestInfo.getGSZ()), "0.0000"));
+        dataBinding.tvPercentageToday.setText(FontUtils.number2String(FontUtils.str2Double(fundLatestInfo.getGSZZL()), "0.00") + "%");
         dataBinding.tvPriceDayBefore.setText(FontUtils.number2String(fundLatestInfo.getNAV(), "0.0000"));
         dataBinding.tvPercentageDayBefore.setText(FontUtils.number2String(fundLatestInfo.getNAVCHGRT(), "0.00") + "%");
 
@@ -73,10 +74,10 @@ public class ChiYouAdapter extends BaseMultiItemQuickAdapter<FundLatestInfo, Bas
         int fallColor = getContext().getResources().getColor(R.color.fall_color);
         int defaultColor = getContext().getResources().getColor(R.color.default_color);
 
-        if (fundLatestInfo.getGSZZL() > 0) {
+        if (FontUtils.str2Double(fundLatestInfo.getGSZZL()) > 0) {
             dataBinding.tvPriceToday.setTextColor(riseColor);
             dataBinding.tvPercentageToday.setTextColor(riseColor);
-        } else if (fundLatestInfo.getGSZZL() < 0) {
+        } else if (FontUtils.str2Double(fundLatestInfo.getGSZZL()) < 0) {
             dataBinding.tvPriceToday.setTextColor(fallColor);
             dataBinding.tvPercentageToday.setTextColor(fallColor);
         } else {
@@ -110,6 +111,8 @@ public class ChiYouAdapter extends BaseMultiItemQuickAdapter<FundLatestInfo, Bas
             Drawable drawable = generateBg(color);
             dataBinding.lvIcon.setBackground(drawable);
         }
+
+        dataBinding.isTop.setVisibility(fundLatestInfo.isTop() ? View.VISIBLE : View.GONE);
     }
 
     private Drawable generateBg(int color) {

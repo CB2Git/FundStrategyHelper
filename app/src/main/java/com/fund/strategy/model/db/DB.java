@@ -7,8 +7,10 @@ import com.jingewenku.abrahamcaijin.commonutil.application.AppUtils;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(version = 1, entities = {ChiYouEntity.class})
+@Database(version = 2, entities = {ChiYouEntity.class})
 public abstract class DB extends RoomDatabase {
 
     private static final String DB_NAME = "my_db";
@@ -32,9 +34,17 @@ public abstract class DB extends RoomDatabase {
 
     private static DB createDatabase() {
         return Room.databaseBuilder(AppUtils.getContext(), DB.class, DB_NAME)
+                .addMigrations(MIGRATION_1_2)
                 .allowMainThreadQueries()
                 .build();
     }
+
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE `ChiYouEntity` ADD COLUMN `is_top` INTEGER NOT NULL DEFAULT 0");
+        }
+    };
 
     public abstract ChiYouDao chiyouDao();
 }

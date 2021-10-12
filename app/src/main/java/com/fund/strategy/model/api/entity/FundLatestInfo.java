@@ -24,14 +24,17 @@ public class FundLatestInfo implements MultiItemEntity {
 
     public static final int TYPE_TOP = 1;
 
+
+    private boolean isTop;
+
     private String FCODE;
     private String SHORTNAME;
     private String PDATE;
     private float NAV;
     private float ACCNAV;
     private float NAVCHGRT;
-    private float GSZ;
-    private float GSZZL;
+    private String GSZ;
+    private String GSZZL;
     private String GZTIME;
     private String NEWPRICE;
     private String CHANGERATIO;
@@ -56,6 +59,14 @@ public class FundLatestInfo implements MultiItemEntity {
     public FundLatestInfo setType(int type) {
         mType = type;
         return this;
+    }
+
+    public boolean isTop() {
+        return isTop;
+    }
+
+    public void setTop(boolean top) {
+        isTop = top;
     }
 
     public String getFCODE() {
@@ -106,19 +117,19 @@ public class FundLatestInfo implements MultiItemEntity {
         this.NAVCHGRT = NAVCHGRT;
     }
 
-    public float getGSZ() {
+    public String getGSZ() {
         return GSZ;
     }
 
-    public void setGSZ(float GSZ) {
+    public void setGSZ(String GSZ) {
         this.GSZ = GSZ;
     }
 
-    public float getGSZZL() {
+    public String getGSZZL() {
         return GSZZL;
     }
 
-    public void setGSZZL(float GSZZL) {
+    public void setGSZZL(String GSZZL) {
         this.GSZZL = GSZZL;
     }
 

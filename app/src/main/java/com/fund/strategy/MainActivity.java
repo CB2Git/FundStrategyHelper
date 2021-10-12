@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
         if (data != null && data.getPathSegments() != null && data.getPathSegments().size() > 0) {
             String s = data.getPathSegments().get(0);
             try {
-                mBinding.mainViewPager.setCurrentItem(Integer.valueOf(s));
+                mBinding.mainViewPager.setCurrentItem(Integer.parseInt(s));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
